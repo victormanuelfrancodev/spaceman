@@ -1,29 +1,30 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameView : MonoBehaviour {
+public class GameView : MonoBehaviour
+{
+    public Text scoreText,coinsText,maxScoreText; 
+    private PlayerController player;
 
-    public Text coinsText, scoreText, maxScoreText;
+    void Start()
+    {
+        player = GameObject.Find("Player").GetComponent<PlayerController>();
+    }
 
-    private PlayerController controller;
+    // Update is called once per frame
+    void Update()
+    {
+        if(GameManager.shareInstance.currentGameState == GameState.inGame)
+        {
+            int coins = GameManager.shareInstance.collectableObject;
+            float score = player.GetTraveledDistance();
+            float maxScore = PlayerPrefs.GetFloat("maxscore",0f);
 
-	// Use this for initialization
-	void Start () {
-        controller = GameObject.Find("Player").GetComponent<PlayerController>();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        if(GameManager.sharedInstance.currentGameState == GameState.inGame){
-            int coins = GameManager.sharedInstance.collectedObject;
-            float score = controller.GetTravelledDistance();
-            float maxScore = PlayerPrefs.GetFloat("maxscore", 0);
-
-            coinsText.text = coins.ToString();
+            coinsText.text = "Coins: " + coins.ToString();
             scoreText.text = "Score: " + score.ToString("f1");
-            maxScoreText.text = "MaxScore: " + maxScore.ToString("f1");
+            maxScoreText.text = "Max Score: " + maxScore.ToString("f1");
         }
-	}
+    }
 }

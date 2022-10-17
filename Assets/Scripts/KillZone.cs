@@ -1,26 +1,26 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class KillZone : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
-    private void OnTriggerEnter2D(Collider2D collision)
+public class KillZone : MonoBehaviour
+{
+    // Start is called before the first frame update
+    void Start()
     {
-        if(collision.tag == "Player"){
-            PlayerController controller = 
-                collision.GetComponent<PlayerController>();
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+    private void OnTriggerEnter2D(Collider2D other) {
+        if(other.tag =="Player"){
+            Debug.Log("dead");
+            PlayerController controller = other.GetComponent<PlayerController>();
             controller.Die();
         }
     }
-
 }
