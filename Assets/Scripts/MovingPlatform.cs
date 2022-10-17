@@ -1,14 +1,12 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MovingPlatform : MonoBehaviour
-{
-    // Start is called before the first frame update
-  void OnTriggerEnter2D(Collider2D other)
+public class MovingPlatform : MonoBehaviour {
+
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-       Animator animator = GetComponent<Animator>();
-       animator.enabled = true;
+        Animator animator = GetComponent<Animator>();
+        animator.enabled = true;
     }
-  
 }

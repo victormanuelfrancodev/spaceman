@@ -1,12 +1,12 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class MenuManager : MonoBehaviour
 {
+
     public static MenuManager sharedInstance;
-    public Canvas menuCanvas;
-    // Start is called before the first frame update
+    public Canvas menuCanvas, gameCanvas, gameOverCanvas;
 
     private void Awake()
     {
@@ -15,25 +15,52 @@ public class MenuManager : MonoBehaviour
             sharedInstance = this;
         }
     }
-
-    public void ShowMainMenu(){
+    public void ShowMainMenu()
+    {
         menuCanvas.enabled = true;
     }
 
-    public void HideMainMenu(){
+    public void HideMainMenu()
+    {
         menuCanvas.enabled = false;
     }
 
-
-
-    void Start()
+    public void ShowGameMenu()
     {
-        
+        gameCanvas.enabled = true;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void HideGameMenu()
     {
-        
+        gameCanvas.enabled = false;
     }
+
+    public void ShowGameOverMenu()
+    {
+        gameOverCanvas.enabled = true;
+    }
+
+    public void HideGameOverMenu()
+    {
+        gameOverCanvas.enabled = false;
+    }
+
+    public void ExitGame()
+    {
+    #if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+    #else
+        Application.Quit();
+    #endif
+    }
+
+    // Use this for initialization
+    void Start () {
+		
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		
+	}
 }

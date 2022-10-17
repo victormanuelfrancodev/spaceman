@@ -1,38 +1,37 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelManager : MonoBehaviour
-{
+public class LevelManager : MonoBehaviour {
 
     public static LevelManager sharedInstance;
-    
+
     public List<LevelBlock> allTheLevelBlocks = new List<LevelBlock>();
 
     public List<LevelBlock> currentLevelBlocks = new List<LevelBlock>();
 
     public Transform levelStartPosition;
 
-    private void Awake() {
-        if (sharedInstance == null) {
+    void Awake()
+    {
+        if(sharedInstance == null){
             sharedInstance = this;
-        }    
+        }
     }
-
-    void Start()
-    {
+    // Use this for initialization
+    void Start () {
         GenerateInitialBlocks();
-        
-    }
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		
+	}
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void AddLevelBlock(){
-        int randomIndex = Random.Range(0, allTheLevelBlocks.Count);
+        int randomIdx = Random.Range(0, allTheLevelBlocks.Count);
+
         LevelBlock block;
 
         Vector3 spawnPosition = Vector3.zero;
@@ -41,16 +40,20 @@ public class LevelManager : MonoBehaviour
             block = Instantiate(allTheLevelBlocks[0]);
             spawnPosition = levelStartPosition.position;
         }else{
-            block = Instantiate(allTheLevelBlocks[randomIndex]); 
-            spawnPosition = currentLevelBlocks[currentLevelBlocks.Count - 1].exitPoint.position;   
+            block = Instantiate(allTheLevelBlocks[randomIdx]);
+            spawnPosition = currentLevelBlocks
+                [currentLevelBlocks.Count - 1].
+                 exitPoint.position;
         }
-        block.transform.SetParent(this.transform, false);
-        Vector3 correction = new Vector3(spawnPosition.x - block.startPoint.position.x, spawnPosition.y - block.startPoint.position.y, 0);
 
+        block.transform.SetParent(this.transform,false);
+
+        Vector3 correction = new Vector3(
+            spawnPosition.x-block.startPoint.position.x,
+            spawnPosition.y-block.startPoint.position.y,
+            0 );
         block.transform.position = correction;
-
         currentLevelBlocks.Add(block);
-
     }
 
     public void RemoveLevelBlock(){
@@ -60,14 +63,13 @@ public class LevelManager : MonoBehaviour
     }
 
     public void RemoveAllLevelBlocks(){
-        while (currentLevelBlocks.Count > 0) {
-            
-                RemoveLevelBlock();
-            }
+        while(currentLevelBlocks.Count>0){
+            RemoveLevelBlock();
+        }
     }
 
     public void GenerateInitialBlocks(){
-        for(int i = 0; i < 2; i++){
+        for (int i = 0; i < 2; i++){
             AddLevelBlock();
         }
     }

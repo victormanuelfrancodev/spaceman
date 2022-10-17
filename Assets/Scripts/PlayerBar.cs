@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,38 +8,35 @@ public enum BarType{
     manaBar
 }
 
-public class PlayerBar : MonoBehaviour
-{
+public class PlayerBar : MonoBehaviour {
 
     private Slider slider;
     public BarType type;
-
-    // Start is called before the first frame update
-    void Start()
-    {
+	// Use this for initialization
+	void Start () {
         slider = GetComponent<Slider>();
-        switch (type)
-        {
+        switch(type){
             case BarType.healthBar:
                 slider.maxValue = PlayerController.MAX_HEALTH;
                 break;
             case BarType.manaBar:
-               slider.maxValue = PlayerController.MAX_MANA;
+                slider.maxValue = PlayerController.MAX_MANA;
                 break;
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-         switch (type)
-        {
+	}
+	
+	// Update is called once per frame
+	void Update () {
+        switch(type){
             case BarType.healthBar:
-                slider.value = GameObject.Find("Player").GetComponent<PlayerController>().GetHealth();
+                slider.value = GameObject.Find("Player").
+                    GetComponent<PlayerController>().GetHealth();
                 break;
+
             case BarType.manaBar:
-               slider.value = GameObject.Find("Player").GetComponent<PlayerController>().GetMana();
+                slider.value = GameObject.Find("Player").
+                    GetComponent<PlayerController>().GetMana();
                 break;
         }
-    }
+	}
 }
